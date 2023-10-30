@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import { Login } from "./pages/login.tsx";
 import { Dashboard } from "./pages/dashboard.tsx";
+import { ListMissings } from "./pages/list-missings";
 
 const router = createBrowserRouter([
   {
@@ -15,8 +16,8 @@ const router = createBrowserRouter([
     element: <Dashboard />,
   },
   {
-    path: "manual",
-    element: <div>Mnaula</div>,
+    path: "/listMissings",
+    element: <ListMissings />,
   },
 ]);
 
