@@ -3,7 +3,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import InputAdornment from '@mui/material/InputAdornment';
 import { TextField } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-import DataTable from "../components/table";
+import DataTable from "../components/data-table";
 
 export function ListMissings() {
   return (
