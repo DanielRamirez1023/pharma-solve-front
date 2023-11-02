@@ -1,53 +1,141 @@
-import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbar, esES } from "@mui/x-data-grid";
+import { useQuery } from "@apollo/client/react";
+import { LIST_MEDICINES } from "../graphql/queries";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import { ListMedicinesQuery } from "./types";
+import { Box, CircularProgress } from "@mui/material";
+import Swal from "sweetalert2";
+import ModalEdit from "./modal-edit";
+import { FormEditMissing } from "./form-edit-missing";
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
+  { field: "_id", headerName: "ID", width: 70 },
+  { field: "name", headerName: "Nombre del medicamento", width: 240 },
+  { field: "laboratory", headerName: "Laboratorio", width: 160 },
   {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
+    field: "description",
+    headerName: "Descripcion",
+    width: 150,
   },
   {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    field: "amount",
+    headerName: "Cantidad",
+    width: 120,
+    align: "center",
   },
-];
+  {
+    field: "createdAt",
+    headerName: "Fecha de ingreso",
+    width: 200,
+  },
+  {
+    field: "actions",
+    headerName: "Acciones",
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+    type: "actions",
+    renderCell: (item) => (
+      <div className="flex gap-4">
+        <Tooltip title="Borrar">
+          <IconButton
+            onClick={() => {
+              Swal.fire({
+                title: "Estas seguro?",
+                text: "Que deseas borrar este faltante!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, borrar!",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire("Borrado!", `El faltante con id: ${item.id}`, "success");
+                }
+              });
+            }}
+          >
+            <DeleteIcon color="error" />
+          </IconButton>
+        </Tooltip>
+        <ModalEdit title="Editar">
+          <FormEditMissing item={item.row} />
+        </ModalEdit>
+      </div>
+    ),
+  },
 ];
 
 export default function DataTable() {
-  return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-      />
-    </div>
-  );
+  const { data, loading, error } = useQuery<ListMedicinesQuery>(LIST_MEDICINES);
+
+  if (error) {
+    return <div>Hubo un error al consultar la informacion</div>;
+  }
+
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress sx={{ color: "#45A9AF", mt: "8%" }} />
+      </Box>
+    );
+  }
+
+  console.log(data);
+  if (data) {
+    return (
+      <div className="h-[400px] w-[100%] md:w-[85%] m-auto  rounded-sm">
+        <DataGrid
+          sx={{
+            ".MuiDataGrid-columnHeaders": {
+              background: "#45A9AF",
+              color: "white",
+            },
+            ".MuiDataGrid-menuIconButton": {
+              color: "white",
+            },
+            ".MuiDataGrid-sortIcon": {
+              color: "white",
+            },
+            ".MuiDataGrid-toolbarContainer button": {
+              color: "black",
+            },
+            ".css-v4u5dn-MuiInputBase-root-MuiInput-root": {
+              border: "1px solid gray",
+              borderRadius: "5px",
+              px: "5px",
+              my: "10px",
+              mr: "20px",
+            },
+            ".MuiDataGrid-root": {
+              background: "red",
+            },
+          }}
+          getRowId={(row) => row._id}
+          rows={data.ListMedicines}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
+          }}
+          pageSizeOptions={[5, 10]}
+          checkboxSelection
+          disableDensitySelector
+          disableColumnFilter
+          disableColumnSelector
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+          slots={{
+            toolbar: GridToolbar,
+          }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+            },
+          }}
+        />
+      </div>
+    );
+  }
 }
