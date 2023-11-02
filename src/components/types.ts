@@ -1,4 +1,4 @@
-interface Medicine {
+export interface Medicine {
   amount: number;
   completed: boolean;
   createdAt: string;

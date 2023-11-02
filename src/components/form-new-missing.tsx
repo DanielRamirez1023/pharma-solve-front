@@ -7,7 +7,7 @@ export const FormNewMissing = () => {
       <TextField size="small" variant="outlined" label="Laboratorio" />
       <TextField size="small" variant="outlined" label="Descripcion" />
       <TextField size="small" variant="outlined" label="Cantidad" />
-      <div className="col-span-2 flex justify-center">
+      <div className="md:col-span-2 flex justify-center">
         <Button
           className="w-44"
           sx={{

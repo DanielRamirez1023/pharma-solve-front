@@ -1,5 +1,4 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -7,19 +6,6 @@ import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import Tooltip from "@mui/material/Tooltip";
-
-const style = {
-  position: "absolute",
-  top: "30%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 500,
-  bgcolor: "background.paper",
-  borderRadius: "4px",
-  border: "1px solid gray",
-  boxShadow: 24,
-  p: 3,
-};
 
 interface PropsModalEdit {
   title: string;
@@ -33,7 +19,7 @@ export default function ModalEdit({ title, children }: PropsModalEdit) {
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
+    <section>
       <Tooltip title="Editar">
         <IconButton onClick={handleOpen}>
           <EditIcon />
@@ -45,7 +31,7 @@ export default function ModalEdit({ title, children }: PropsModalEdit) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <div className="absolute top-[10%] md:top-[30%] left-[50%] transform -translate-x-2/4 -transalte-y-2/4 bg-white w-[90%] md:w-[30%] p-4 border-2 border-gray-400 rounded-md">
           <header>
             <IconButton sx={{ position: "absolute", right: 30, top: 20 }} onClick={handleClose}>
               {" "}
@@ -56,8 +42,8 @@ export default function ModalEdit({ title, children }: PropsModalEdit) {
             </Typography>
           </header>
           {children}
-        </Box>
+        </div>
       </Modal>
-    </div>
+    </section>
   );
 }
