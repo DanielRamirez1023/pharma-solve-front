@@ -2,6 +2,7 @@ import StoreIcon from "@mui/icons-material/Store";
 import { BottonNavigation } from "./../components/botton-navigation";
 import { SideBar } from "../components/sidebar";
 import { MenuUser } from "../components/menu-user";
+import { Link } from "react-router-dom";
 
 export function Dashboard() {
   return (
@@ -16,23 +17,35 @@ export function Dashboard() {
         </header>
 
         <article className="grid grid-cols-2 gap-4 md:gap-10 ">
-          <a className="w-36 h-36  md:w-48 md:h-48 flex flex-col justify-center items-center border-2 rounded-md  shadow-xl">
+          <Link
+            to={`/listMissings/${"variante"}`}
+            className="w-36 h-36  md:w-48 md:h-48 flex flex-col justify-center items-center border-2 rounded-md  shadow-xl"
+          >
             <StoreIcon fontSize="large" />
             <h3>Variante</h3>
-          </a>
+          </Link>
 
-          <a className="w-36 h-36  md:w-48 md:h-48 flex  flex-col justify-center items-center border-2 rounded-md shadow-xl">
+          <Link
+            to={`/listMissings/${"loceria"}`}
+            className="w-36 h-36  md:w-48 md:h-48 flex  flex-col justify-center items-center border-2 rounded-md shadow-xl"
+          >
             <StoreIcon fontSize="large" />
             <h3>Loceria</h3>
-          </a>
-          <a className="w-36 h-36  md:w-48 md:h-48 flex flex-col justify-center items-center border-2 rounded-md shadow-xl">
+          </Link>
+          <Link
+            to={`/listMissings/${"tricentenario"}`}
+            className="w-36 h-36  md:w-48 md:h-48 flex flex-col justify-center items-center border-2 rounded-md shadow-xl"
+          >
             <StoreIcon fontSize="large" />
             <h3>Tricentenario</h3>
-          </a>
-          <a className="w-36 h-36  md:w-48 md:h-48 flex flex-col justify-center items-center border-2 rounded-md  shadow-xl">
+          </Link>
+          <Link
+            to={`/listMissings/${"popular"}`}
+            className="w-36 h-36  md:w-48 md:h-48 flex flex-col justify-center items-center border-2 rounded-md  shadow-xl"
+          >
             <StoreIcon fontSize="large" />
             <h3>Popular</h3>
-          </a>
+          </Link>
         </article>
       </div>
       <BottonNavigation />

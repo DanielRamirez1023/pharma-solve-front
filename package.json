@@ -10,14 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.6",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.14",
     "@mui/material": "^5.14.14",
     "@mui/x-data-grid": "^6.17.0",
+    "graphql": "^16.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.17.0"
+    "react-router-dom": "^6.17.0",
+    "sweetalert2": "^11.9.0"
   },
   "devDependencies": {
     "@types/json-schema": "^7.0.14",
