@@ -17,8 +17,7 @@ export function MenuUser() {
     setAnchorEl(null);
   };
   return (
-    <div className="flex items-center absolute right-4 top-4">
-      <Typography>user</Typography>
+    <div className=" absolute right-4 top-4">
       <IconButton
         size="large"
         aria-label="account of current user"
@@ -26,7 +25,9 @@ export function MenuUser() {
         aria-haspopup="true"
         onClick={handleMenu}
         color="inherit"
+        className="gap-2"
       >
+        <Typography>Daniel Ramirez</Typography>
         <AccountCircle />
       </IconButton>
       <Menu

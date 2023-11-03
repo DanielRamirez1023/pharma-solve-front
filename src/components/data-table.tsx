@@ -2,14 +2,15 @@ import { DataGrid, GridColDef, GridToolbar, esES } from "@mui/x-data-grid";
 import { useQuery } from "@apollo/client/react";
 import { LIST_MEDICINES } from "../graphql/queries";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { ListMedicinesQuery } from "./types";
 import { Box, CircularProgress } from "@mui/material";
 import Swal from "sweetalert2";
-import ModalEdit from "./modal-edit";
 import { FormEditMissing } from "./form-edit-missing";
+import BtnModal from "./modal";
 
 const columns: GridColDef[] = [
   { field: "_id", headerName: "ID", width: 70 },
@@ -59,9 +60,9 @@ const columns: GridColDef[] = [
             <DeleteIcon color="error" />
           </IconButton>
         </Tooltip>
-        <ModalEdit title="Editar">
+        <BtnModal title="Editar" type="Icon">
           <FormEditMissing item={item.row} />
-        </ModalEdit>
+        </BtnModal>
       </div>
     ),
   },
@@ -71,7 +72,14 @@ export default function DataTable() {
   const { data, loading, error } = useQuery<ListMedicinesQuery>(LIST_MEDICINES);
 
   if (error) {
-    return <div>Hubo un error al consultar la informacion</div>;
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Alert severity="error">
+          <AlertTitle>Error 500</AlertTitle>
+          Hubo un error al obtener la informacion!
+        </Alert>
+      </Box>
+    );
   }
 
   if (loading) {
@@ -85,7 +93,7 @@ export default function DataTable() {
   console.log(data);
   if (data) {
     return (
-      <div className="h-[400px] w-[100%] md:w-[85%] m-auto  rounded-sm">
+      <div className="h-[440px] w-[100%] md:w-[85%] m-auto  rounded-sm">
         <DataGrid
           sx={{
             ".MuiDataGrid-columnHeaders": {

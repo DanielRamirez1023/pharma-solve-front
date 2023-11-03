@@ -9,6 +9,13 @@ export interface Medicine {
   _id: string;
 }
 
+export interface NewMedicine {
+  amount: number;
+  description: string;
+  laboratory: string;
+  name: string;
+}
+
 export type ListMedicinesQuery = {
   ListMedicines: Array<Medicine>;
 };

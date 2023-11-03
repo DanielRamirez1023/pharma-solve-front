@@ -2,14 +2,14 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import DataTable from "../components/data-table";
 import { Link, useParams } from "react-router-dom";
-import BtnModal from "../components/modal-new";
+import BtnModal from "../components/modal";
 import { FormNewMissing } from "../components/form-new-missing";
 
 export function ListMissings() {
   const { name } = useParams();
   return (
     <section>
-      <header className="hidden md:flex flex-col gap-10  md:gap-0 md:flex-row justify-between px-8 py-3 items-center">
+      <header className="hidden md:flex flex-col gap-10  md:gap-0 md:flex-row justify-between px-8 pt-3 items-center">
         <Link to="/dashboard" className="flex items-center">
           <ArrowBackIosIcon fontSize="small" />
           <h3 className="text-xl font-semibold">Volver</h3>
@@ -42,7 +42,7 @@ export function ListMissings() {
         <div className="flex  gap-5 justify-center  py-8 md:p-10">
           <h2 className="text-3xl font-bold">Faltantes</h2>
 
-          <BtnModal title="Ingresar nuevo faltante">
+          <BtnModal title="Ingresar nuevo faltante" type="buttom">
             <FormNewMissing />
           </BtnModal>
         </div>
