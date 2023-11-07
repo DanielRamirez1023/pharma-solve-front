@@ -1,16 +1,28 @@
 import { DataGrid, GridColDef, GridToolbar, esES } from "@mui/x-data-grid";
-import { useQuery } from "@apollo/client/react";
-import { LIST_MEDICINES } from "../graphql/queries";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import { ListMedicinesQuery } from "./types";
-import { Box, CircularProgress } from "@mui/material";
-import Swal from "sweetalert2";
-import { FormEditMissing } from "./form-edit-missing";
 import BtnModal from "./modal";
+import { Medicine } from "./types";
+import { BottomDelete } from "./bottom-delete";
+
+// const useDelete = async (id: string) => {
+//   const [deleteMedicine] = useMutation(DELETE_MEDICINE);
+
+//   try {
+//     const response = await deleteMedicine({
+//       variables: {
+//         id,
+//       },
+//       refetchQueries: [{ query: LIST_MEDICINES }],
+//     });
+
+//     console.log(response.data);
+//     // return {
+//     //   data: response.data,
+//     //   loading,
+//     // };
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 const columns: GridColDef[] = [
   { field: "_id", headerName: "ID", width: 70 },
@@ -39,111 +51,66 @@ const columns: GridColDef[] = [
     type: "actions",
     renderCell: (item) => (
       <div className="flex gap-4">
-        <Tooltip title="Borrar">
-          <IconButton
-            onClick={() => {
-              Swal.fire({
-                title: "Estas seguro?",
-                text: "Que deseas borrar este faltante!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Si, borrar!",
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  Swal.fire("Borrado!", `El faltante con id: ${item.id}`, "success");
-                }
-              });
-            }}
-          >
-            <DeleteIcon color="error" />
-          </IconButton>
-        </Tooltip>
-        <BtnModal title="Editar" type="Icon">
-          <FormEditMissing item={item.row} />
-        </BtnModal>
+        <BottomDelete id={item.id.toString()} />
+        <BtnModal title="Editar" type="Icon" item={item.row} />
       </div>
     ),
   },
 ];
 
-export default function DataTable() {
-  const { data, loading, error } = useQuery<ListMedicinesQuery>(LIST_MEDICINES);
+export default function DataTable({ ListMedicines }: { ListMedicines: Array<Medicine> }) {
+  return (
+    <div className="h-[440px] w-[100%] md:w-[85%] m-auto  rounded-sm">
+      <DataGrid
+        sx={{
+          ".MuiDataGrid-columnHeaders": {
+            background: "#45A9AF",
+            color: "white",
+          },
+          ".MuiDataGrid-menuIconButton": {
+            color: "white",
+          },
+          ".MuiDataGrid-sortIcon": {
+            color: "white",
+          },
+          ".MuiDataGrid-toolbarContainer button": {
+            color: "black",
+          },
+          ".css-v4u5dn-MuiInputBase-root-MuiInput-root": {
+            border: "1px solid #80808075",
+            borderRadius: "5px",
 
-  if (error) {
-    return (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Alert severity="error">
-          <AlertTitle>Error 500</AlertTitle>
-          Hubo un error al obtener la informacion!
-        </Alert>
-      </Box>
-    );
-  }
-
-  if (loading) {
-    return (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <CircularProgress sx={{ color: "#45A9AF", mt: "8%" }} />
-      </Box>
-    );
-  }
-
-  console.log(data);
-  if (data) {
-    return (
-      <div className="h-[440px] w-[100%] md:w-[85%] m-auto  rounded-sm">
-        <DataGrid
-          sx={{
-            ".MuiDataGrid-columnHeaders": {
-              background: "#45A9AF",
-              color: "white",
-            },
-            ".MuiDataGrid-menuIconButton": {
-              color: "white",
-            },
-            ".MuiDataGrid-sortIcon": {
-              color: "white",
-            },
-            ".MuiDataGrid-toolbarContainer button": {
-              color: "black",
-            },
-            ".css-v4u5dn-MuiInputBase-root-MuiInput-root": {
-              border: "1px solid gray",
-              borderRadius: "5px",
-              px: "5px",
-              my: "10px",
-              mr: "20px",
-            },
-            ".MuiDataGrid-root": {
-              background: "red",
-            },
-          }}
-          getRowId={(row) => row._id}
-          rows={data.ListMedicines}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-          disableDensitySelector
-          disableColumnFilter
-          disableColumnSelector
-          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          slots={{
-            toolbar: GridToolbar,
-          }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
-        />
-      </div>
-    );
-  }
+            px: "5px",
+            my: "10px",
+            mr: "20px",
+          },
+          ".MuiDataGrid-root": {
+            background: "red",
+          },
+        }}
+        getRowId={(row) => row._id}
+        rows={ListMedicines}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: { page: 0, pageSize: 5 },
+          },
+        }}
+        pageSizeOptions={[5, 10]}
+        checkboxSelection
+        disableDensitySelector
+        disableColumnFilter
+        disableColumnSelector
+        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+        slots={{
+          toolbar: GridToolbar,
+        }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true,
+          },
+        }}
+      />
+    </div>
+  );
 }

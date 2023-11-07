@@ -3,10 +3,16 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import DataTable from "../components/data-table";
 import { Link, useParams } from "react-router-dom";
 import BtnModal from "../components/modal";
-import { FormNewMissing } from "../components/form-new-missing";
+import { ListMedicinesQuery } from "../components/types";
+import { LIST_MEDICINES } from "../graphql/queries";
+import { useQuery } from "@apollo/client";
+import { Alert, AlertTitle, Box, CircularProgress } from "@mui/material";
 
 export function ListMissings() {
+  const { data, loading, error } = useQuery<ListMedicinesQuery>(LIST_MEDICINES);
+
   const { name } = useParams();
+
   return (
     <section>
       <header className="hidden md:flex flex-col gap-10  md:gap-0 md:flex-row justify-between px-8 pt-3 items-center">
@@ -41,12 +47,22 @@ export function ListMissings() {
       <article className=" px-4 md:p-0">
         <div className="flex  gap-5 justify-center  py-8 md:p-10">
           <h2 className="text-3xl font-bold">Faltantes</h2>
-
-          <BtnModal title="Ingresar nuevo faltante" type="buttom">
-            <FormNewMissing />
-          </BtnModal>
+          <BtnModal title="Ingresar nuevo faltante" type="buttom" />
         </div>
-        <DataTable />
+        {error && (
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Alert severity="error">
+              <AlertTitle>Error 500</AlertTitle>
+              Hubo un error al obtener la informacion!
+            </Alert>
+          </Box>
+        )}
+        {loading && (
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <CircularProgress sx={{ color: "#45A9AF", mt: "8%" }} />
+          </Box>
+        )}
+        {data && <DataTable ListMedicines={data.ListMedicines} />}
       </article>
     </section>
   );

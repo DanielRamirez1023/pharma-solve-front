@@ -5,14 +5,18 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { IconButton, Tooltip } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { Medicine } from "./types";
+import { FormNewMissing } from "./form-new-missing";
+import { FormEditMissing } from "./form-edit-missing";
 
 interface PropsBtnModal {
   title: string;
   type: "buttom" | "Icon";
-  children: JSX.Element;
+
+  item?: Medicine | null;
 }
 
-export default function BtnModal({ title, type, children }: PropsBtnModal) {
+export default function BtnModal({ title, type, item }: PropsBtnModal) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -56,7 +60,11 @@ export default function BtnModal({ title, type, children }: PropsBtnModal) {
               {title}
             </Typography>
           </header>
-          {children}
+          {type === "buttom" ? (
+            <FormNewMissing handleClose={handleClose} />
+          ) : (
+            <FormEditMissing item={item} handleClose={handleClose} />
+          )}
         </div>
       </Modal>
     </section>

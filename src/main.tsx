@@ -6,6 +6,7 @@ import "./index.css";
 import { Login } from "./pages/login.tsx";
 import { Dashboard } from "./pages/dashboard.tsx";
 import { ListMissings } from "./pages/list-missings";
+import { GlobalContext } from "./context/global-context.tsx";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -16,11 +17,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/listMissings/:name" element={<ListMissings />} />
-        </Routes>
+        <GlobalContext>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/listMissings/:name" element={<ListMissings />} />
+          </Routes>
+        </GlobalContext>
       </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>

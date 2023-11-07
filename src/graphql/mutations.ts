@@ -25,3 +25,18 @@ mutation Mutation($id: ID!) {
     amount
   }
 }`);
+
+export const UPDATE_MEDICINE = gql(`
+mutation Mutation($id: ID!, $laboratory: String, $name: String, $description: String, $amount: Int) {
+  updateMedicine(_id: $id, laboratory: $laboratory, name: $name, description: $description, amount: $amount) {
+    _id
+    name
+    description
+    laboratory
+    pharmacy
+    amount
+    completed
+    createdAt
+  }
+}
+`);

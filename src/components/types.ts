@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface Medicine {
   amount: number;
   completed: boolean;
@@ -19,3 +21,16 @@ export interface NewMedicine {
 export type ListMedicinesQuery = {
   ListMedicines: Array<Medicine>;
 };
+
+export type ModalContextType = {
+  item: Medicine;
+  setItem: Dispatch<SetStateAction<Medicine>>;
+};
+
+export interface ListMedicineCache {
+  ListMedicines: Array<Medicine>;
+}
+
+export interface CreateMedicineMutation {
+  createMedicine: Medicine;
+}
