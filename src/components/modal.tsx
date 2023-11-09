@@ -50,7 +50,7 @@ export default function BtnModal({ title, type, item }: PropsBtnModal) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <div className="absolute top-[10%] md:top-[30%] left-[50%] transform -translate-x-2/4 -transalte-y-2/4 bg-white w-[90%] md:w-[60%] lg:w-[40%] p-4 border-2 border-gray-400 rounded-md">
+        <div className="absolute top-[30%] md:top-[30%] left-[50%] transform -translate-x-2/4 -transalte-y-2/4 bg-white w-[90%] md:w-[60%] lg:w-[40%] p-4 border-2 border-gray-400 rounded-md">
           <header>
             <IconButton sx={{ position: "absolute", right: 30, top: 20 }} onClick={handleClose}>
               {" "}

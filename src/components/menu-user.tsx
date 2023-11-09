@@ -16,6 +16,7 @@ export function MenuUser() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <div className=" absolute right-4 top-4">
       <IconButton

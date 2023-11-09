@@ -2,36 +2,15 @@ import { DataGrid, GridColDef, GridToolbar, esES } from "@mui/x-data-grid";
 import BtnModal from "./modal";
 import { Medicine } from "./types";
 import { BottomDelete } from "./bottom-delete";
-
-// const useDelete = async (id: string) => {
-//   const [deleteMedicine] = useMutation(DELETE_MEDICINE);
-
-//   try {
-//     const response = await deleteMedicine({
-//       variables: {
-//         id,
-//       },
-//       refetchQueries: [{ query: LIST_MEDICINES }],
-//     });
-
-//     console.log(response.data);
-//     // return {
-//     //   data: response.data,
-//     //   loading,
-//     // };
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+import { formatDate } from "./format-date";
 
 const columns: GridColDef[] = [
-  { field: "_id", headerName: "ID", width: 70 },
-  { field: "name", headerName: "Nombre del medicamento", width: 240 },
+  { field: "name", headerName: "Nombre del medicamento", width: 200 },
   { field: "laboratory", headerName: "Laboratorio", width: 160 },
   {
     field: "description",
     headerName: "Descripcion",
-    width: 150,
+    width: 200,
   },
   {
     field: "amount",
@@ -42,7 +21,8 @@ const columns: GridColDef[] = [
   {
     field: "createdAt",
     headerName: "Fecha de ingreso",
-    width: 200,
+    width: 210,
+    renderCell: (item) => formatDate(Number(item.row.createdAt)),
   },
   {
     field: "actions",
@@ -50,7 +30,7 @@ const columns: GridColDef[] = [
 
     type: "actions",
     renderCell: (item) => (
-      <div className="flex gap-4">
+      <div className="flex gap-2">
         <BottomDelete id={item.id.toString()} />
         <BtnModal title="Editar" type="Icon" item={item.row} />
       </div>
@@ -60,7 +40,7 @@ const columns: GridColDef[] = [
 
 export default function DataTable({ ListMedicines }: { ListMedicines: Array<Medicine> }) {
   return (
-    <div className="h-[440px] w-[100%] md:w-[85%] m-auto  rounded-sm">
+    <div className="hidden md:flex h-[440px] w-[100%] md:w-[75%] m-auto  rounded-sm ">
       <DataGrid
         sx={{
           ".MuiDataGrid-columnHeaders": {

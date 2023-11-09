@@ -1,8 +1,5 @@
 import { Button, Card, CardContent, TextField } from "@mui/material";
 import Logo from "./../assets/images/pharmasolve.png";
-// interface typeDashboard {
-//   setAuth: React.Dispatch<React.SetStateAction<boolean>>;
-// }
 
 export function Login() {
   return (

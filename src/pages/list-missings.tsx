@@ -5,8 +5,47 @@ import { Link, useParams } from "react-router-dom";
 import BtnModal from "../components/modal";
 import { ListMedicinesQuery } from "../components/types";
 import { LIST_MEDICINES } from "../graphql/queries";
-import { useQuery } from "@apollo/client";
+import { ApolloError, useQuery } from "@apollo/client";
 import { Alert, AlertTitle, Box, CircularProgress } from "@mui/material";
+import { TableMobile } from "../components/table-mobile";
+
+export interface MedicinesContentProps {
+  data: ListMedicinesQuery | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+}
+
+function MedicinesContent({ data, loading, error }: MedicinesContentProps) {
+  if (error) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Alert severity="error">
+          <AlertTitle>Error 500</AlertTitle>
+          Hubo un error al obtener la información.
+        </Alert>
+      </Box>
+    );
+  }
+
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress sx={{ color: "#45A9AF", mt: "8%" }} />
+      </Box>
+    );
+  }
+
+  if (data && data.ListMedicines.length > 0) {
+    return (
+      <>
+        <DataTable ListMedicines={data.ListMedicines} />
+        <TableMobile ListMedicines={data.ListMedicines} />
+      </>
+    );
+  }
+
+  return <p className="flex justify-center items-center text-lg text-gray-400">Aún no hay faltantes registrados</p>;
+}
 
 export function ListMissings() {
   const { data, loading, error } = useQuery<ListMedicinesQuery>(LIST_MEDICINES);
@@ -30,39 +69,24 @@ export function ListMissings() {
         </div>
       </header>
       <header className="md:hidden flex flex-col  w-full gap-5">
-        <div className="flex justify-between p-4">
+        <div className="flex justify-between items-center p-4">
           <Link to="/dashboard" className="flex items-center">
             <ArrowBackIosIcon fontSize="small" />
-            <h3 className="text-xl font-semibold">Volver</h3>
           </Link>
+          <p className="text-xl text-center">
+            <span className="font-semibold">Estas en:</span> {name}
+          </p>
           <div className="flex gap-2 items-center">
-            <p>Daniel Ramirez</p>
             <AccountCircle fontSize="large" />
           </div>
         </div>
-        <p className="text-xl text-center">
-          <span className="font-semibold">Estas en:</span> {name}
-        </p>
       </header>
       <article className=" px-4 md:p-0">
-        <div className="flex  gap-5 justify-center  py-8 md:p-10">
+        <div className="flex gap-5 justify-center  py-8 md:p-10">
           <h2 className="text-3xl font-bold">Faltantes</h2>
           <BtnModal title="Ingresar nuevo faltante" type="buttom" />
         </div>
-        {error && (
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <Alert severity="error">
-              <AlertTitle>Error 500</AlertTitle>
-              Hubo un error al obtener la informacion!
-            </Alert>
-          </Box>
-        )}
-        {loading && (
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <CircularProgress sx={{ color: "#45A9AF", mt: "8%" }} />
-          </Box>
-        )}
-        {data && <DataTable ListMedicines={data.ListMedicines} />}
+        <MedicinesContent data={data} loading={loading} error={error} />
       </article>
     </section>
   );

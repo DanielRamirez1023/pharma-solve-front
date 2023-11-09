@@ -59,7 +59,7 @@ export const FormNewMissing = ({ handleClose }: { handleClose: () => void }) => 
 
         handleClose();
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: "Se ha agregado con exito el faltante",
 

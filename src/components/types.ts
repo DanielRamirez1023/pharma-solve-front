@@ -34,3 +34,7 @@ export interface ListMedicineCache {
 export interface CreateMedicineMutation {
   createMedicine: Medicine;
 }
+
+export interface UpdateMedicineMutation {
+  updateMedicine: Medicine;
+}

@@ -45,6 +45,7 @@ export const BottomDelete = ({ id }: { id: string }) => {
       <IconButton
         onClick={() => {
           Swal.fire({
+            position: "center",
             title: "Estas seguro?",
             text: "Que deseas borrar este faltante!",
             icon: "warning",

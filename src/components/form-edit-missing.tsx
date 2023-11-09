@@ -1,5 +1,5 @@
 import { Button, TextField, CircularProgress } from "@mui/material";
-import { ListMedicineCache, Medicine } from "./types";
+import { ListMedicineCache, Medicine, UpdateMedicineMutation } from "./types";
 import Swal from "sweetalert2";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -13,10 +13,6 @@ const validationSchema = yup.object({
   description: yup.string().required("Debes ingresar la descripcion"),
   amount: yup.number().required("Debes ingresar la cantidad"),
 });
-
-interface UpdateMedicineMutation {
-  updateMedicine: Medicine;
-}
 
 export const FormEditMissing = ({
   item,
@@ -72,7 +68,7 @@ export const FormEditMissing = ({
 
         handleClose();
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: "Se ha editado con exito",
 
