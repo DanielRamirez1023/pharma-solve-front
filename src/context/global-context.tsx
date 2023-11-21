@@ -1,26 +1,29 @@
 import { createContext, useState, Dispatch, SetStateAction } from "react";
-import { Medicine } from "../components/types";
 
-type ModalContextType = {
-  item: Medicine;
-  setItem: Dispatch<SetStateAction<Medicine>>;
-};
+interface User {
+  name: string;
+  email: string;
+  role: string;
+  createdAt: string;
+}
+const userLogin = JSON.parse(localStorage.getItem("user")!);
 
 const initialValue = {
-  amount: 0,
-  completed: false,
-  createdAt: "",
-  description: "",
-  laboratory: "",
-  name: "",
-  pharmacy: "",
-  _id: "",
+  name: userLogin.name,
+  email: userLogin.email,
+  role: userLogin.role,
+  createdAt: userLogin.createdAt,
 };
 
-export const AppContext = createContext<ModalContextType>({ setItem: () => {}, item: initialValue });
+type ModalContextType = {
+  user: User;
+  setUser: Dispatch<SetStateAction<User>>;
+};
+
+export const AppContext = createContext<ModalContextType>({ setUser: () => {}, user: initialValue });
 
 export const GlobalContext = ({ children }: { children: JSX.Element }) => {
-  const [item, setItem] = useState(initialValue);
+  const [user, setUser] = useState(initialValue);
 
-  return <AppContext.Provider value={{ item, setItem }}>{children}</AppContext.Provider>;
+  return <AppContext.Provider value={{ user, setUser }}>{children}</AppContext.Provider>;
 };

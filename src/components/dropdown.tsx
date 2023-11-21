@@ -5,7 +5,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { BottomDelete } from "./bottom-delete";
 import BtnModal from "./modal";
 import { Medicine } from "./types";
-import { formatDate } from "./format-date";
+import { formatDate } from "../helpers/format-data.ts";
 
 interface PropsDropdown {
   medicine: Medicine;
@@ -36,7 +36,8 @@ export const Dropdown = (props: PropsDropdown) => {
               {formatDate(Number(createdAt))}
             </p>
             <p className="flex items-center gap-2">
-              <input className="text-lg" type="checkbox" /> <span>{completed ? "completado" : "sin completar"}</span>
+              {completed && <span className="bg-green-500 rounded-lg px-2 py-1 text-white">Completado</span>}
+              {!completed && <span className="bg-red-500 rounded-lg px-3 py-1 text-white">Pendiente</span>}
             </p>
           </div>
           <div className="flex">

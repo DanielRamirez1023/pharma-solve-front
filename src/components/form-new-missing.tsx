@@ -6,6 +6,8 @@ import { CREATE_MEDICINE } from "../graphql/mutations";
 import Swal from "sweetalert2";
 import { LIST_MEDICINES } from "../graphql/queries";
 import { CreateMedicineMutation, ListMedicineCache } from "./types";
+import { useParams } from "react-router-dom";
+import { capitalizeFirstLetter } from "../helpers/format-data";
 
 const validationSchema = yup.object({
   name: yup.string().required("Debes ingresar el nombre"),
@@ -15,6 +17,9 @@ const validationSchema = yup.object({
 });
 
 export const FormNewMissing = ({ handleClose }: { handleClose: () => void }) => {
+  const { name } = useParams();
+  const namePharmacy = capitalizeFirstLetter(name!);
+
   const [CreateMedicine, { loading }] = useMutation<CreateMedicineMutation>(CREATE_MEDICINE, {
     // refetchQueries: [{ query: LIST_MEDICINES }],
     update: (cache, { data }) => {
@@ -53,7 +58,7 @@ export const FormNewMissing = ({ handleClose }: { handleClose: () => void }) => 
             laboratory: values.laboratory,
             description: values.description,
             amount: Number(values.amount),
-            pharmacy: "Loceria",
+            pharmacy: namePharmacy,
           },
         });
 

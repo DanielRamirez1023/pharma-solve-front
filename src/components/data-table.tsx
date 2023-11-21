@@ -2,9 +2,22 @@ import { DataGrid, GridColDef, GridToolbar, esES } from "@mui/x-data-grid";
 import BtnModal from "./modal";
 import { Medicine } from "./types";
 import { BottomDelete } from "./bottom-delete";
-import { formatDate } from "./format-date";
+import { formatDate } from "../helpers/format-data.ts";
 
 const columns: GridColDef[] = [
+  {
+    field: "completed",
+    headerName: "Estado",
+    width: 120,
+    align: "center",
+    renderCell: (item) => {
+      return item.row.completed ? (
+        <span className="bg-green-500 rounded-lg px-2 py-1 text-white">Completado</span>
+      ) : (
+        <span className="bg-red-500 rounded-lg px-3 py-1 text-white">Pendiente</span>
+      );
+    },
+  },
   { field: "name", headerName: "Nombre del medicamento", width: 200 },
   { field: "laboratory", headerName: "Laboratorio", width: 160 },
   {
@@ -40,7 +53,7 @@ const columns: GridColDef[] = [
 
 export default function DataTable({ ListMedicines }: { ListMedicines: Array<Medicine> }) {
   return (
-    <div className="hidden md:flex h-[440px] w-[100%] md:w-[75%] m-auto  rounded-sm ">
+    <div className="hidden md:flex h-[440px] w-[100%] md:w-[80%]  m-auto  rounded-sm ">
       <DataGrid
         sx={{
           ".MuiDataGrid-columnHeaders": {
@@ -77,10 +90,10 @@ export default function DataTable({ ListMedicines }: { ListMedicines: Array<Medi
           },
         }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
         disableDensitySelector
         disableColumnFilter
         disableColumnSelector
+        disableRowSelectionOnClick
         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
         slots={{
           toolbar: GridToolbar,

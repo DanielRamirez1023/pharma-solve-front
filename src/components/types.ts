@@ -22,6 +22,18 @@ export type ListMedicinesQuery = {
   ListMedicines: Array<Medicine>;
 };
 
+export type LoginQuery = {
+  login: {
+    token: string;
+    user: {
+      email: string;
+      name: string;
+      role: string;
+      createdAt: string;
+    };
+  };
+};
+
 export type ModalContextType = {
   item: Medicine;
   setItem: Dispatch<SetStateAction<Medicine>>;

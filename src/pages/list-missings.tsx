@@ -1,16 +1,16 @@
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import DataTable from "../components/data-table";
 import { Link, useParams } from "react-router-dom";
 import BtnModal from "../components/modal";
-import { ListMedicinesQuery } from "../components/types";
+import { ListMedicinesQuery, Medicine } from "../components/types";
 import { LIST_MEDICINES } from "../graphql/queries";
 import { ApolloError, useQuery } from "@apollo/client";
 import { Alert, AlertTitle, Box, CircularProgress } from "@mui/material";
 import { TableMobile } from "../components/table-mobile";
+import { MenuUser } from "../components/menu-user";
 
 export interface MedicinesContentProps {
-  data: ListMedicinesQuery | undefined;
+  data: Medicine[] | undefined;
   loading: boolean;
   error: ApolloError | undefined;
 }
@@ -35,11 +35,11 @@ function MedicinesContent({ data, loading, error }: MedicinesContentProps) {
     );
   }
 
-  if (data && data.ListMedicines.length > 0) {
+  if (data && data.length > 0) {
     return (
       <>
-        <DataTable ListMedicines={data.ListMedicines} />
-        <TableMobile ListMedicines={data.ListMedicines} />
+        <DataTable ListMedicines={data} />
+        <TableMobile ListMedicines={data} />
       </>
     );
   }
@@ -52,6 +52,8 @@ export function ListMissings() {
 
   const { name } = useParams();
 
+  const dataFilter = data?.ListMedicines.filter((item) => item.pharmacy.toLowerCase() === name?.toLowerCase());
+
   return (
     <section>
       <header className="hidden md:flex flex-col gap-10  md:gap-0 md:flex-row justify-between px-8 pt-3 items-center">
@@ -61,11 +63,10 @@ export function ListMissings() {
         </Link>
 
         <p className="text-xl">
-          <span className="font-semibold">Estas En:</span> {name}
+          <span className="font-semibold">Estas en:</span> {name}
         </p>
-        <div className="flex gap-2 items-center">
-          <p>Daniel Ramirez</p>
-          <AccountCircle fontSize="large" />
+        <div className="flex  items-center">
+          <MenuUser />
         </div>
       </header>
       <header className="md:hidden flex flex-col  w-full gap-5">
@@ -77,7 +78,7 @@ export function ListMissings() {
             <span className="font-semibold">Estas en:</span> {name}
           </p>
           <div className="flex gap-2 items-center">
-            <AccountCircle fontSize="large" />
+            <MenuUser />
           </div>
         </div>
       </header>
@@ -86,7 +87,7 @@ export function ListMissings() {
           <h2 className="text-3xl font-bold">Faltantes</h2>
           <BtnModal title="Ingresar nuevo faltante" type="buttom" />
         </div>
-        <MedicinesContent data={data} loading={loading} error={error} />
+        <MedicinesContent data={dataFilter} loading={loading} error={error} />
       </article>
     </section>
   );

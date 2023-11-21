@@ -33,10 +33,15 @@ export const BottomDelete = ({ id }: { id: string }) => {
           }
         },
       });
-      Swal.fire("Borrado!", `El faltante con id: ${id}`, "success");
+      Swal.fire("Borrado!", `con exito!`, "success");
       console.log(response.data);
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${error}`,
+      });
     }
   };
 

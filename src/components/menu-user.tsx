@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import { AppContext } from "../context/global-context";
 
 export function MenuUser() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { user } = useContext(AppContext);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -18,7 +20,7 @@ export function MenuUser() {
   };
 
   return (
-    <div className=" absolute right-4 top-4">
+    <div className=" absolute right-4 top-0.5">
       <IconButton
         size="large"
         aria-label="account of current user"
@@ -28,8 +30,11 @@ export function MenuUser() {
         color="inherit"
         className="gap-2"
       >
-        <Typography>Daniel Ramirez</Typography>
-        <AccountCircle />
+        <div className=" flex-col place-items-end hidden md:flex">
+          <Typography>{user.name}</Typography>
+          <Typography variant="caption">{user.role}</Typography>
+        </div>
+        <AccountCircle fontSize="large" />
       </IconButton>
       <Menu
         id="menu-appbar"
@@ -46,6 +51,14 @@ export function MenuUser() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <MenuItem>
+          <div className=" flex-col justify-items-start flex md:hidden">
+            <Typography>{user.name}</Typography>
+            <Typography className="text-xs" variant="caption">
+              {user.role}
+            </Typography>
+          </div>
+        </MenuItem>
         <MenuItem className="gap-1" onClick={handleClose}>
           <AccountCircle />
           Mi perfil
