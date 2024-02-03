@@ -17,6 +17,7 @@ export interface MedicinesContentProps {
 
 function MedicinesContent({ data, loading, error }: MedicinesContentProps) {
   if (error) {
+    console.log(error);
     return (
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Alert severity="error">

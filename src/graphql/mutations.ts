@@ -9,7 +9,7 @@ mutation CreateMedicine($name: String, $laboratory: String, $description: String
     description
     pharmacy
     amount
-    completed
+    status
     createdAt
   
   }

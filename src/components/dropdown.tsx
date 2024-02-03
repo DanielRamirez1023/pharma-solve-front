@@ -6,13 +6,14 @@ import { BottomDelete } from "./bottom-delete";
 import BtnModal from "./modal";
 import { Medicine } from "./types";
 import { formatDate } from "../helpers/format-data.ts";
+import { SelectCustom } from "./select.tsx";
 
 interface PropsDropdown {
   medicine: Medicine;
 }
 
 export const Dropdown = (props: PropsDropdown) => {
-  const { name, description, laboratory, completed, amount, createdAt } = props.medicine;
+  const { name, description, laboratory, status, amount, createdAt } = props.medicine;
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
@@ -35,10 +36,7 @@ export const Dropdown = (props: PropsDropdown) => {
               <span className="font-semibold">Fecha: </span>
               {formatDate(Number(createdAt))}
             </p>
-            <p className="flex items-center gap-2">
-              {completed && <span className="bg-green-500 rounded-lg px-2 py-1 text-white">Completado</span>}
-              {!completed && <span className="bg-red-500 rounded-lg px-3 py-1 text-white">Pendiente</span>}
-            </p>
+            <SelectCustom status={status} />
           </div>
           <div className="flex">
             <BottomDelete id={props.medicine._id} />

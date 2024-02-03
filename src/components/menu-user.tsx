@@ -52,16 +52,13 @@ export function MenuUser() {
         onClose={handleClose}
       >
         <MenuItem>
-          <div className=" flex-col justify-items-start flex md:hidden">
+          <AccountCircle fontSize="large" />
+          <div className="ml-2 flex-col justify-items-start flex md:hidden">
             <Typography>{user.name}</Typography>
             <Typography className="text-xs" variant="caption">
               {user.role}
             </Typography>
           </div>
-        </MenuItem>
-        <MenuItem className="gap-1" onClick={handleClose}>
-          <AccountCircle />
-          Mi perfil
         </MenuItem>
 
         <a href="/" className=" sm:hidden">

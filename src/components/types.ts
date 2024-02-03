@@ -1,8 +1,14 @@
 import { Dispatch, SetStateAction } from "react";
 
+enum TypeStatus {
+  SIN_REVISAR = "sin revisar",
+  PENDIENTE = "pendiente",
+  COMPLETADO = "completado",
+}
+
 export interface Medicine {
   amount: number;
-  completed: boolean;
+  status: TypeStatus;
   createdAt: string;
   description: string;
   laboratory: string;
