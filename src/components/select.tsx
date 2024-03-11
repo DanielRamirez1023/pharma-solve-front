@@ -1,29 +1,25 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import MenuItem from "@mui/material/MenuItem";
-
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { AppContext } from "../context/global-context";
-import Swal from "sweetalert2";
 
 interface PropsSelect {
-  status: string;
+  handleChangeModal: () => void;
+  statusMedicine: string;
+  setStatusMedicine: (status: string) => void;
 }
 
-export const SelectCustom = ({ status }: PropsSelect) => {
-  // console.log(status);
-  const [statusMedicine, setStatusMedicine] = useState(status);
+export const SelectCustom = ({ handleChangeModal, statusMedicine, setStatusMedicine }: PropsSelect) => {
+  // const [statusMedicine, setStatusMedicine] = useState(status);
   const { user } = useContext(AppContext);
-
   const handleChange = (event: SelectChangeEvent) => {
-    setStatusMedicine(event.target.value);
-    console.log(event.target.value);
     if (event.target.value === "COMPLETADO") {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: `No puedes cambiar el estado de un faltante completado`,
-      });
+      handleChangeModal();
+
+      // Mostrar un modal en el que seleccione la fecha en la que llego el pedido y si hubo alguna novedad
+    } else {
+      setStatusMedicine(event.target.value);
     }
   };
   return (
@@ -49,7 +45,6 @@ export const SelectCustom = ({ status }: PropsSelect) => {
         value={statusMedicine}
         onChange={handleChange}
         displayEmpty
-        disabled={user.role === "Regente"}
         inputProps={{ "aria-label": "Without label" }}
       >
         <MenuItem value="SIN_REVISAR">sin revisar</MenuItem>

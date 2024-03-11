@@ -1,13 +1,13 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import DataTable from "../components/data-table";
+import DataTable from "../../components/data-table";
 import { Link, useParams } from "react-router-dom";
-import BtnModal from "../components/modal";
-import { ListMedicinesQuery, Medicine } from "../components/types";
-import { LIST_MEDICINES } from "../graphql/queries";
+import BtnModal from "../../components/btn-modal";
+import { ListMedicinesQuery, Medicine } from "../../components/types";
+import { LIST_MEDICINES } from "../../graphql/queries";
 import { ApolloError, useQuery } from "@apollo/client";
 import { Alert, AlertTitle, Box, CircularProgress } from "@mui/material";
-import { TableMobile } from "../components/table-mobile";
-import { MenuUser } from "../components/menu-user";
+import { TableMobile } from "../../components/table-mobile";
+import { MenuUser } from "../../components/menu-user";
 
 export interface MedicinesContentProps {
   data: Medicine[] | undefined;

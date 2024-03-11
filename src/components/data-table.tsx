@@ -1,9 +1,10 @@
 import { DataGrid, GridColDef, GridToolbar, esES } from "@mui/x-data-grid";
-import BtnModal from "./modal";
+import BtnModal from "./btn-modal";
 import { Medicine } from "./types";
 import { BottomDelete } from "./bottom-delete";
 import { formatDate } from "../helpers/format-data.ts";
-import { SelectCustom } from "./select.tsx";
+// import { SelectCustom } from "./select.tsx";
+import BasicModal from "./modal.tsx";
 
 const columns: GridColDef[] = [
   {
@@ -11,7 +12,7 @@ const columns: GridColDef[] = [
     headerName: "Estado",
     width: 150,
     align: "center",
-    renderCell: (item) => <SelectCustom status={item.row.status} />,
+    renderCell: (item) => <BasicModal status={item.row.status} id={item.row._id} />,
   },
   { field: "name", headerName: "Nombre del medicamento", width: 200 },
   { field: "laboratory", headerName: "Laboratorio", width: 160 },

@@ -35,7 +35,6 @@ mutation Mutation($id: ID!, $laboratory: String, $name: String, $description: St
     laboratory
     pharmacy
     amount
-    completed
     createdAt
   }
 }

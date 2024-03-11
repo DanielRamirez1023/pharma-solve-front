@@ -3,10 +3,10 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { BottomDelete } from "./bottom-delete";
-import BtnModal from "./modal";
+import BtnModal from "./btn-modal";
 import { Medicine } from "./types";
 import { formatDate } from "../helpers/format-data.ts";
-import { SelectCustom } from "./select.tsx";
+import BasicModal from "./modal.tsx";
 
 interface PropsDropdown {
   medicine: Medicine;
@@ -36,7 +36,7 @@ export const Dropdown = (props: PropsDropdown) => {
               <span className="font-semibold">Fecha: </span>
               {formatDate(Number(createdAt))}
             </p>
-            <SelectCustom status={status} />
+            <BasicModal status={status} id={props.medicine._id} />
           </div>
           <div className="flex">
             <BottomDelete id={props.medicine._id} />

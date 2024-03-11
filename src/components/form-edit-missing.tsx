@@ -66,6 +66,7 @@ export const FormEditMissing = ({
           },
         });
 
+        console.log(response.data);
         handleClose();
         Swal.fire({
           position: "center",
@@ -75,8 +76,13 @@ export const FormEditMissing = ({
           showConfirmButton: false,
           timer: 1000,
         });
-        console.log(response.data);
       } catch (error) {
+        handleClose();
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${error}`,
+        });
         console.log(error);
       }
     },
