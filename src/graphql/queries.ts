@@ -10,6 +10,6 @@ query Medicines {
     amount
     createdAt
     pharmacy
-    completed
+    status
   }
 }`);

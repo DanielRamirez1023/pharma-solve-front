@@ -1,22 +1,18 @@
 import { DataGrid, GridColDef, GridToolbar, esES } from "@mui/x-data-grid";
-import BtnModal from "./modal";
+import BtnModal from "./btn-modal";
 import { Medicine } from "./types";
 import { BottomDelete } from "./bottom-delete";
 import { formatDate } from "../helpers/format-data.ts";
+// import { SelectCustom } from "./select.tsx";
+import BasicModal from "./modal.tsx";
 
 const columns: GridColDef[] = [
   {
-    field: "completed",
+    field: "status",
     headerName: "Estado",
-    width: 120,
+    width: 150,
     align: "center",
-    renderCell: (item) => {
-      return item.row.completed ? (
-        <span className="bg-green-500 rounded-lg px-2 py-1 text-white">Completado</span>
-      ) : (
-        <span className="bg-red-500 rounded-lg px-3 py-1 text-white">Pendiente</span>
-      );
-    },
+    renderCell: (item) => <BasicModal status={item.row.status} id={item.row._id} />,
   },
   { field: "name", headerName: "Nombre del medicamento", width: 200 },
   { field: "laboratory", headerName: "Laboratorio", width: 160 },
