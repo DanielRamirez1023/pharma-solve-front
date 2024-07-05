@@ -9,10 +9,11 @@ import { Dashboard } from "./pages/dashboard.tsx";
 import { ListMissings } from "./pages/list-missings";
 import { GlobalContext } from "./context/global-context.tsx";
 import { PharmacyList } from "./pages/pharmacy-list.tsx";
+import Users from "./pages/users.tsx";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
-  // uri: "https://4q1sjm5f-4000.use2.devtunnels.ms/graphql",
+  // uri: "https://z9ctw773-4000.use2.devtunnels.ms/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -41,7 +42,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path="" element={<PharmacyList />} />
               <Route path="manual" element={<p>Manual del sistema</p>} />
               <Route path="politicas" element={<p>Politicas de privacidad</p>} />
-              <Route path="usuarios" element={<p>Usuarios</p>} />
+              <Route path="usuarios" element={<Users />} />
             </Route>
             <Route path="/listMissings/:name" element={<ListMissings />} />
           </Routes>
