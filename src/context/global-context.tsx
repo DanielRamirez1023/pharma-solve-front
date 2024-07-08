@@ -8,12 +8,19 @@ interface User {
 }
 const userLogin = JSON.parse(localStorage.getItem("user")!);
 
-const initialValue = {
-  name: userLogin.name,
-  email: userLogin.email,
-  role: userLogin.role,
-  createdAt: userLogin.createdAt,
-};
+const initialValue = userLogin
+  ? {
+      name: userLogin.name,
+      email: userLogin.email,
+      role: userLogin.role,
+      createdAt: userLogin.createdAt,
+    }
+  : {
+      name: "",
+      email: "",
+      role: "",
+      createdAt: "",
+    };
 
 type ModalContextType = {
   user: User;

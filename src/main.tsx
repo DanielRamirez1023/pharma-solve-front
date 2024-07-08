@@ -12,8 +12,7 @@ import { PharmacyList } from "./pages/pharmacy-list.tsx";
 import Users from "./pages/users.tsx";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
-  // uri: "https://z9ctw773-4000.use2.devtunnels.ms/graphql",
+  uri: import.meta.env.VITE_BACKEND_URL,
 });
 
 const authLink = setContext((_, { headers }) => {
