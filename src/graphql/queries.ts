@@ -13,3 +13,15 @@ query Medicines {
     status
   }
 }`);
+
+export const LIST_USERS = gql(`
+  query ListUsers {
+  ListUsers {
+    _id
+    email
+    name
+    role
+    createdAt
+  }
+}
+  `);

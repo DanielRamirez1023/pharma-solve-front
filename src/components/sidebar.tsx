@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export function SideBar() {
   return (
-    <aside className="hidden left-0 absolute w-[80%] md:fixed md:block h-full md:h-[705px] md:w-[20%] bg-secondary text-white p-4">
+    <aside className="hidden left-0 absolute w-auto  md:fixed md:block h-full md:h-[100vh]  bg-secondary text-white p-4">
       <h1 className="font-bold text-xl border-b-2">PharmaSolve</h1>
       <nav className="flex flex-col gap-10 pt-8 text-lg">
         <Link className="font-semibold flex items-center gap-2" to={""}>

@@ -4,7 +4,7 @@ import StoreIcon from "@mui/icons-material/Store";
 
 export const PharmacyList = () => {
   return (
-    <div className="flex flex-col w-[80%] items-center justify-center ">
+    <div className="flex flex-col items-center justify-center ">
       <MenuUser />
 
       <header className="text-center mt-24 mb-10 sm:my-10">

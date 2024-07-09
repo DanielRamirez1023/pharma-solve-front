@@ -24,8 +24,20 @@ export interface NewMedicine {
   name: string;
 }
 
+export interface User {
+  _id: string;
+  email: string;
+  name: string;
+  role: string;
+  createdAt: string;
+}
+
 export type ListMedicinesQuery = {
   ListMedicines: Array<Medicine>;
+};
+
+export type ListUsersQuery = {
+  ListUsers: Array<User>;
 };
 
 export type LoginQuery = {
