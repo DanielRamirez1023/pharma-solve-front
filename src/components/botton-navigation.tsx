@@ -14,6 +14,7 @@ export function BottonNavigation() {
         showLabels
         value={value}
         onChange={(event, newValue) => {
+          console.log(event);
           setValue(newValue);
         }}
       >
